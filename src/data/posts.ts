@@ -10,14 +10,19 @@ export type BlogPost = PostFrontmatter & {
   heroImage?: string
 }
 
-const markdownModules = import.meta.glob('./blog-posts/*.md', {
+const markdownModules = import.meta.glob('./blog-posts/*/*/*/*/index.md', {
   query: '?raw',
   import: 'default',
   eager: true,
 }) as Record<string, string>
 
+const assetModules = import.meta.glob('./blog-posts/**/*.{png,jpg,jpeg,webp,gif,svg}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>
+
 const posts = Object.entries(markdownModules)
-  .map(([, rawFile]) => parseMarkdownPost(rawFile))
+  .map(([filePath, rawFile]) => parseMarkdownPost(filePath, rawFile))
   .sort(
     (a, b) =>
       new Date(b.publishDate).valueOf() - new Date(a.publishDate).valueOf(),
@@ -31,13 +36,14 @@ export function getPostBySlug(slug: string) {
   return posts.find((post) => post.slug === slug)
 }
 
-function parseMarkdownPost(rawFile: string): BlogPost {
+function parseMarkdownPost(filePath: string, rawFile: string): BlogPost {
   const { frontmatter, content } = splitFrontmatter(rawFile)
-  const heroImageMatch = content.match(/!\[[^\]]*]\(([^)]+)\)/)
+  const resolvedContent = resolveRelativeAssets(filePath, content.trim())
+  const heroImageMatch = resolvedContent.match(/!\[[^\]]*]\(([^)]+)\)/)
 
   return {
     ...frontmatter,
-    content: content.trim(),
+    content: resolvedContent,
     heroImage: heroImageMatch?.[1],
   }
 }
@@ -74,4 +80,23 @@ function splitFrontmatter(rawFile: string): {
     },
     content,
   }
+}
+
+function resolveRelativeAssets(filePath: string, content: string) {
+  const directory = filePath.slice(0, filePath.lastIndexOf('/') + 1)
+
+  const replaceAssetPath = (rawPath: string) => {
+    if (!rawPath.startsWith('./')) {
+      return rawPath
+    }
+
+    const assetKey = `${directory}${rawPath.slice(2)}`
+    return assetModules[assetKey] ?? rawPath
+  }
+
+  return content
+    .replace(/\]\((\.\/[^)]+)\)/g, (_, assetPath: string) => `](${replaceAssetPath(assetPath)})`)
+    .replace(/src=(['"])(\.\/[^'"]+)\1/g, (_, quote: string, assetPath: string) => {
+      return `src=${quote}${replaceAssetPath(assetPath)}${quote}`
+    })
 }
