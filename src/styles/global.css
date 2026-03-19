@@ -284,6 +284,12 @@ td {
   word-break: break-word; /* 内容过长时允许换行 */
 }
 
+.container {
+  margin: 0 auto;
+  max-width: 42em;
+  width: 100%;
+}
+
 /* 文章正文里的一级标题单独放大，和普通 h1 区分开。 */
 .content h1 {
   font-size: 3em; /* 正文内一级标题字号 */
