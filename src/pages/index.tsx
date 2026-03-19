@@ -3,7 +3,7 @@ import { BaseHead } from '../components/BaseHead'
 import { getSortedPosts } from '../data/posts'
 
 export function HomePage() {
-  const latestPosts = getSortedPosts().slice(0, 2)
+  const latestPosts = getSortedPosts().slice(0, 3)
 
   return (
     <>
@@ -36,8 +36,8 @@ export function HomePage() {
               className="hero-image"
               alt="Illustration of person reading a book"
               src="/assets/home-illustration-small.webp"
-              width="550"
-              height="466"
+              width={"550"}
+              height={"466"}
             />
           </picture>
           <figcaption>
@@ -51,8 +51,8 @@ export function HomePage() {
 
       <section className="home-posts container">
         <div className="section-heading">
-          <h2>Latest Posts</h2>
-          <Link to="/blog">View all</Link>
+          <h2>最新文章</h2>
+          <Link to="/blog">查看全部</Link>
         </div>
 
         <div className="post-grid">
