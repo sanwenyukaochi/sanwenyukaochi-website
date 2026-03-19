@@ -4,7 +4,6 @@ import { AboutPage } from './pages/about'
 import { BlogListPage } from './pages/blog'
 import { BlogPostPage } from './pages/blog/[slug]'
 import { HomePage } from './pages'
-import './App.css'
 
 function App() {
   return (

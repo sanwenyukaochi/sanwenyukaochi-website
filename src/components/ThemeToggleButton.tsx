@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 type ThemeMode = 'light' | 'dark'
 
@@ -14,9 +15,9 @@ export function ThemeToggleButton() {
   }, [theme])
 
   return (
-    <div className="theme-toggle">
+    <ToggleRoot>
       {themes.map((mode) => (
-        <label key={mode} className={theme === mode ? 'checked' : ''}>
+        <ToggleLabel key={mode} $checked={theme === mode}>
           {mode === 'light' ? <SunIcon /> : <MoonIcon />}
           <input
             aria-label={`Use ${mode} theme`}
@@ -27,9 +28,9 @@ export function ThemeToggleButton() {
             type="radio"
             value={mode}
           />
-        </label>
+        </ToggleLabel>
       ))}
-    </div>
+    </ToggleRoot>
   )
 }
 
@@ -65,3 +66,30 @@ function MoonIcon() {
     </svg>
   )
 }
+
+const ToggleRoot = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  height: 100%;
+  padding: 8px 0.67em 0.33em;
+  border-radius: 99em;
+  background: var(--code-inline-bg);
+`
+
+const ToggleLabel = styled.label<{ $checked: boolean }>`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ $checked }) => ($checked ? 'var(--primary-color)' : 'var(--text-secondary)')};
+  opacity: ${({ $checked }) => ($checked ? 1 : 0.5)};
+  cursor: pointer;
+
+  input[name='theme-toggle'] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    z-index: -1;
+  }
+`
