@@ -4,7 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>my-website</title>
+    <script>
+      const root = document.documentElement
+      const theme = localStorage.getItem('theme')
+      if (
+        theme === 'dark' ||
+        (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        root.classList.add('theme-dark')
+      } else {
+        root.classList.remove('theme-dark')
+      }
+    </script>
+    <title>sanwenyukaochi</title>
   </head>
   <body>
     <div id="root"></div>

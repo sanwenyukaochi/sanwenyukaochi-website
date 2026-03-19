@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'SaveTheGalaxy';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/SaveTheGalaxy.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SaveTheGalaxy';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/SaveTheGalaxy.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'CangErCute';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/CangErCute.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'CangErCute';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/CangErCute.ttf') format('truetype');
+}
