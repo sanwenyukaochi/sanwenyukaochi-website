@@ -14,7 +14,9 @@ export function Nav() {
       {navItems.map((item) => (
         <NavLink
           key={item.to}
-          className={({ isActive }) => `site-nav-link${isActive ? ' selected' : ''}`}
+          className={({ isActive }) =>
+            `site-nav-link${isActive ? ' selected' : ''}`
+          }
           end={item.end}
           to={item.to}
         >

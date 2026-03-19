@@ -17,22 +17,22 @@ export function HomePage() {
           <Eyebrow>Personal Notes / Frontend / AI</Eyebrow>
           <h1>欢迎来到 sanwenyukaochi 的博客实验站</h1>
           <HeroText>
-            这里会记录我在 React、Next.js、TypeScript、Python 和 AIGC 方向上的学习、
-            实验和项目整理。现在这个外层 React 项目已经具备完整 blog 结构。
+            这里会记录我在 React、Next.js、TypeScript、Python 和 AIGC
+            方向上的学习、 实验和项目整理。现在这个外层 React 项目已经具备完整
+            blog 结构。
           </HeroText>
           <HeroActions>
-            <PrimaryButtonLink to="/blog">
-              浏览文章
-            </PrimaryButtonLink>
-            <ButtonLink to="/about">
-              了解我
-            </ButtonLink>
+            <PrimaryButtonLink to="/blog">浏览文章</PrimaryButtonLink>
+            <ButtonLink to="/about">了解我</ButtonLink>
           </HeroActions>
         </HomeCopy>
 
         <HeroImageBlock>
           <picture>
-            <source srcSet="/assets/home-illustration.webp" media="(min-width: 600px)" />
+            <source
+              srcSet="/assets/home-illustration.webp"
+              media="(min-width: 600px)"
+            />
             <HeroImage
               alt="Illustration of person reading a book"
               src="/assets/home-illustration-small.webp"

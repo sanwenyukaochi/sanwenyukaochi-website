@@ -4,7 +4,8 @@ export function Footer() {
   return (
     <FooterShell>
       <span>
-        &copy; {new Date().getFullYear()} sanwenyukaochi. Built with React and Vite.
+        &copy; {new Date().getFullYear()} sanwenyukaochi. Built with React and
+        Vite.
       </span>
     </FooterShell>
   )

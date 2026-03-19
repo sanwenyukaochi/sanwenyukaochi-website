@@ -10,9 +10,9 @@ export function Bio() {
         height="100"
       />
       <BioText>
-        Hi, I&apos;m <strong>sanwenyukaochi</strong>. I build personal experiments with
-        React, Next.js, TypeScript and Python, and I use this blog to record what I
-        learn while shipping things.
+        Hi, I&apos;m <strong>sanwenyukaochi</strong>. I build personal
+        experiments with React, Next.js, TypeScript and Python, and I use this
+        blog to record what I learn while shipping things.
       </BioText>
     </BioSection>
   )

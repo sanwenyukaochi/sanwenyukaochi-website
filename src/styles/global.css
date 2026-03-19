@@ -58,8 +58,16 @@ body {
   font-size: 16px;
   line-height: 1.6;
   background:
-    radial-gradient(circle at top left, rgba(84, 142, 155, 0.12), transparent 32%),
-    linear-gradient(180deg, var(--background-body) 0%, color-mix(in srgb, var(--background-body) 88%, #d8c9aa 12%) 100%);
+    radial-gradient(
+      circle at top left,
+      rgba(84, 142, 155, 0.12),
+      transparent 32%
+    ),
+    linear-gradient(
+      180deg,
+      var(--background-body) 0%,
+      color-mix(in srgb, var(--background-body) 88%, #d8c9aa 12%) 100%
+    );
   color: var(--text-main);
   transition:
     background-color 0.2s ease,

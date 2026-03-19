@@ -36,7 +36,9 @@ export function BaseHead({ title, description, permalink }: BaseHeadProps) {
 }
 
 function updateMeta(kind: 'name' | 'property', key: string, content: string) {
-  let element = document.head.querySelector<HTMLMetaElement>(`meta[${kind}="${key}"]`)
+  let element = document.head.querySelector<HTMLMetaElement>(
+    `meta[${kind}="${key}"]`,
+  )
 
   if (!element) {
     element = document.createElement('meta')
@@ -48,7 +50,9 @@ function updateMeta(kind: 'name' | 'property', key: string, content: string) {
 }
 
 function updateLink(rel: string, href: string) {
-  let element = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`)
+  let element = document.head.querySelector<HTMLLinkElement>(
+    `link[rel="${rel}"]`,
+  )
 
   if (!element) {
     element = document.createElement('link')

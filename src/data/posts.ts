@@ -19,7 +19,8 @@ const markdownModules = import.meta.glob('./blog-posts/*.md', {
 const posts = Object.entries(markdownModules)
   .map(([, rawFile]) => parseMarkdownPost(rawFile))
   .sort(
-    (a, b) => new Date(b.publishDate).valueOf() - new Date(a.publishDate).valueOf(),
+    (a, b) =>
+      new Date(b.publishDate).valueOf() - new Date(a.publishDate).valueOf(),
   )
 
 export function getSortedPosts() {

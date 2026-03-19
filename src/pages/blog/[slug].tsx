@@ -31,7 +31,10 @@ export function BlogPostPage() {
       <PostContainer className="container">
         <PostContent className="content markdown-body">
           {/* 文章正文来自 src/data/blog-posts/*.md，这里把 Markdown 渲染成页面内容。 */}
-          <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown
+            rehypePlugins={[rehypeRaw]}
+            remarkPlugins={[remarkGfm]}
+          >
             {post.content}
           </ReactMarkdown>
         </PostContent>
