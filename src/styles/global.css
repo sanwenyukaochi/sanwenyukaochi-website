@@ -1,95 +1,185 @@
 /* 全站默认主题变量：
    这里统一定义颜色、阴影、代码块背景和两套主字体，组件里尽量只消费这些变量。 */
 :root {
-  --background-body: #fffdf9;
-  --surface: #ffffff;
-  --surface-muted: rgba(255, 255, 255, 0.72);
-  --text-main: #36393b;
-  --text-secondary: #6b6f72;
-  --primary-color: #548e9b;
-  --primary-color-deep: #35606a;
-  --border-soft: #e6e0d5;
-  --shadow-soft: 0 20px 60px rgba(84, 142, 155, 0.12);
-  --code-block-bg: #f5f1ea;
-  --code-inline-bg: #f1ece3;
-  --font-family-serif: 'Merriweather', serif;
-  --font-family-sans: 'Fira Sans', sans-serif;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --background-body: #fffdf9; /* 页面主背景色 */
+  --surface: #ffffff; /* 卡片、块级容器的实底色 */
+  --surface-muted: rgba(255, 255, 255, 0.72); /* 半透明浅色面板 */
+  --text-main: #36393b; /* 主要正文颜色 */
+  --text-secondary: #6b6f72; /* 次级说明文字颜色 */
+  --primary-color: #548e9b; /* 主强调色，常用于链接和按钮 */
+  --primary-color-deep: #35606a; /* 主强调色的更深版本，常用于 hover */
+  --border-soft: #e6e0d5; /* 柔和边框颜色 */
+  --shadow-soft: 0 20px 60px rgba(84, 142, 155, 0.12); /* 统一使用的柔和阴影 */
+  --code-block-bg: #f5f1ea; /* 代码块背景色 */
+  --code-inline-bg: #f1ece3; /* 行内代码背景色 */
+  --font-family-serif: 'Merriweather', serif; /* 正文衬线字体 */
+  --font-family-sans: 'Fira Sans', sans-serif; /* 标题与界面无衬线字体 */
+  font-synthesis: none; /* 禁止浏览器随意伪造字体样式 */
+  text-rendering: optimizeLegibility; /* 优先提升正文可读性 */
+  -webkit-font-smoothing: antialiased; /* WebKit 字体抗锯齿 */
+  -moz-osx-font-smoothing: grayscale; /* macOS Firefox 字体抗锯齿 */
+
+  --theme-code-inline-bg: #eef3f5; /* 主题切换按钮的浅色背景 */
+  --theme-code-inline-text: #6b6f72; /* 主题切换按钮未选中图标颜色 */
+  --theme-accent: #548e9b; /* 主题切换按钮选中高亮色 */
 }
 
 /* 深色模式下只覆盖变量，不直接重写组件样式。
    这样组件只要继续使用变量，就能自动切换到 dark theme。 */
 :root.theme-dark {
-  --background-body: #202122;
-  --surface: #2a2c2e;
-  --surface-muted: rgba(42, 44, 46, 0.82);
-  --text-main: #f5f5f5;
-  --text-secondary: #c8cccf;
-  --primary-color: #6fa8b5;
-  --primary-color-deep: #8ec7d3;
-  --border-soft: #44494d;
-  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.28);
-  --code-block-bg: #171819;
-  --code-inline-bg: #3a3f44;
+  --background-body: #202122; /* 深色页面背景 */
+  --surface: #2a2c2e; /* 深色卡片背景 */
+  --surface-muted: rgba(42, 44, 46, 0.82); /* 深色半透明面板 */
+  --text-main: #f5f5f5; /* 深色模式主文字 */
+  --text-secondary: #c8cccf; /* 深色模式辅助文字 */
+  --primary-color: #6fa8b5; /* 深色模式主强调色 */
+  --primary-color-deep: #8ec7d3; /* 深色模式 hover 强调色 */
+  --border-soft: #44494d; /* 深色模式边框 */
+  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.28); /* 深色模式阴影 */
+  --code-block-bg: #171819; /* 深色代码块背景 */
+  --code-inline-bg: #3a3f44; /* 深色行内代码背景 */
+
+  --theme-code-inline-bg: #34383a; /* 深色主题切换按钮背景 */
+  --theme-code-inline-text: #d4d7da; /* 深色未选中图标颜色 */
+  --theme-accent: #8cc7d3; /* 深色选中高亮色 */
 }
 
 /* 强制页面始终预留纵向滚动条空间，避免不同页面切换时布局左右抖动。 */
 html {
-  overflow-y: scroll;
+  overflow-y: scroll; /* 始终占用纵向滚动条位置 */
+}
+
+/* 浏览器支持时，使用更现代的滚动条占位方案。 */
+@supports (scrollbar-gutter: stable) {
+  html {
+    overflow-y: auto; /* 让浏览器自行决定是否显示滚动条 */
+    scrollbar-gutter: stable; /* 保持滚动条占位稳定 */
+  }
 }
 
 /* 统一盒模型，让 padding / border 计入元素尺寸，布局更稳定。 */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: border-box; /* 所有元素统一使用 border-box */
 }
 
 /* body 负责全站最底层的排版和背景：
    设置最小尺寸、正文默认字体、背景渐变和主题切换过渡。 */
 body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  font-family: var(--font-family-serif), serif;
-  font-size: 16px;
-  line-height: 1.6;
+  margin: 0; /* 去掉浏览器默认外边距 */
+  min-width: 320px; /* 避免页面在极窄设备上塌得太厉害 */
+  min-height: 100vh; /* 至少占满一屏高度 */
+  font-family: var(--font-family-serif), serif; /* 正文默认使用衬线字体 */
+  font-size: 16px; /* 全站默认字号基准 */
+  line-height: 1.6; /* 正文基础行高 */
   background:
     radial-gradient(
       circle at top left,
       rgba(84, 142, 155, 0.12),
       transparent 32%
-    ),
+    ), /* 左上角一层淡色光斑 */
     linear-gradient(
       180deg,
       var(--background-body) 0%,
       color-mix(in srgb, var(--background-body) 88%, #d8c9aa 12%) 100%
-    );
-  color: var(--text-main);
+    ); /* 从上到下的背景渐变 */
+  color: var(--text-main); /* 默认文字颜色 */
   transition:
     background-color 0.2s ease,
-    color 0.2s ease;
+    color 0.2s ease; /* 主题切换时平滑过渡 */
+}
+
+/* 全站标题默认规则：
+   统一标题字体、字重、行高和下边距。 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-sans), serif; /* 标题统一使用无衬线字体 */
+  font-weight: 700; /* 标题默认粗体 */
+  line-height: 1.2; /* 标题更紧凑的行高 */
+  margin: 0 0 0.5em 0; /* 标题下方留出间距 */
+}
+
+h1 {
+  font-family: var(--font-family-serif), serif; /* 一级标题回到衬线字体 */
+  font-size: 4em; /* 一级标题最大字号 */
+  margin: 0 0 1em 0; /* 一级标题底部留更多空白 */
+}
+
+h2 {
+  margin: 1.6em 0 0 0; /* 二级标题与上一段拉开距离 */
+  font-size: 1.8em; /* 二级标题字号 */
+}
+
+h3 {
+  font-size: 1.5em; /* 三级标题字号 */
+}
+
+h4 {
+  font-size: 1.4em; /* 四级标题字号 */
+}
+
+h5 {
+  font-size: 1.3em; /* 五级标题字号 */
+}
+
+h6 {
+  font-size: 1.2em; /* 六级标题字号 */
+}
+
+/* 正文、列表统一排版：
+   保持博客阅读体验的一致性。 */
+p,
+ul,
+ol {
+  font-size: 1.3rem; /* 段落和列表默认字号 */
+  line-height: 1.75em; /* 提高阅读舒适度 */
+  margin: 1.2em 0; /* 段落上下留白 */
+}
+
+ol,
+ul {
+  padding-left: 2rem; /* 标准列表左缩进 */
+  -webkit-padding-start: 5%; /* 兼容旧 WebKit 的起始缩进 */
+  -webkit-padding-end: 5%; /* 兼容旧 WebKit 的结束缩进 */
+}
+
+li {
+  margin: 1rem 0; /* 列表项之间留一点间距 */
 }
 
 /* 链接默认继承文字颜色，只通过 hover 的主色变化来体现可点击状态。 */
 a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.15s linear;
+  color: inherit; /* 链接默认不单独改色 */
+  text-decoration: none; /* 去掉浏览器默认下划线 */
+  transition: color 0.15s linear; /* hover 时颜色平滑变化 */
 }
 
 a:hover {
-  color: var(--primary-color);
+  color: var(--primary-color); /* hover 时切换到主色 */
 }
 
-/* 图片默认按块级元素处理，并限制最大宽度不超过父容器，防止撑坏布局。 */
+/* 正文里的链接额外增加“高亮下划线”效果。 */
+p a {
+  text-decoration: none; /* 段落中的链接不显示原生下划线 */
+  box-shadow: inset 0 -0.12em 0 var(--primary-color); /* 用内阴影模拟底部高亮线 */
+  -webkit-transition: box-shadow 0.2s ease-in-out, color 0.2s ease-in-out; /* 兼容 WebKit 的过渡 */
+  transition: box-shadow 0.2s ease-in-out, color 0.2s ease-in-out; /* hover 时高亮动画 */
+}
+
+p a:hover {
+  box-shadow: inset 0 -1.5em 0 var(--primary-color); /* hover 时让高亮铺满整行文字高度 */
+  color: #fff; /* hover 后文字改成白色提高对比度 */
+}
+
+/* 图片默认按响应式方式处理，防止撑坏布局。 */
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+  max-width: 100%; /* 图片宽度不超过父元素 */
+  height: auto; /* 高度按比例自适应 */
 }
 
 /* 表单控件默认继承外层字体，避免按钮、输入框出现浏览器自带字体。 */
@@ -97,34 +187,172 @@ button,
 input,
 textarea,
 select {
-  font: inherit;
+  font: inherit; /* 让控件沿用当前上下文字体设置 */
 }
 
 /* React 根节点至少占满一屏，方便布局组件做整页结构。 */
 #root {
-  min-height: 100vh;
+  min-height: 100vh; /* React 挂载根节点至少占满视口 */
 }
 
 /* 通用内容容器：
    用在 about、blog 等正文页，控制最大阅读宽度。 */
 .container {
-  width: 100%;
-  max-width: 42em;
-  margin: 0 auto;
+  width: 100%; /* 在窄屏时允许容器占满 */
+  max-width: 42em; /* 宽屏时限制阅读宽度 */
+  margin: 0 auto; /* 水平居中 */
 }
 
 /* 自定义分隔线，沿用原模板的波浪线 SVG 视觉风格。 */
 hr {
-  padding: 0;
-  border: 0;
-  height: 10px;
-  margin: 40px auto;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='20' height='10' viewBox='0 0 20 10' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd' stroke-miterlimit='10'%3e%3cpath fill='none' d='M0 0h20v10H0z'/%3e%3cclipPath id='a'%3e%3cpath d='M0 0h20v10H0z'/%3e%3c/clipPath%3e%3cg clip-path='url(%23a)'%3e%3cpath d='M20 7.384c-4.999-.001-5-4.768-9.999-4.768C5 2.616 5 7.384 0 7.384' fill='none' stroke-width='3' stroke='%23548E9B'/%3e%3c/g%3e%3c/svg%3e");
+  padding: 0; /* 去掉默认内边距 */
+  border: 0; /* 去掉浏览器默认边框 */
+  height: 10px; /* 分隔线可见高度 */
+  margin: 40px auto; /* 上下留白并居中 */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='20' height='10'  viewBox='0 0 20 10' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd' stroke-miterlimit='10'%3e%3cpath fill='none' d='M0 0h20v10H0z'/%3e%3cclipPath id='a'%3e%3cpath d='M0 0h20v10H0z'/%3e%3c/clipPath%3e%3cg clip-path='url(%23a)'%3e%3cpath d='M20 7.384c-4.999-.001-5-4.768-9.999-4.768C5 2.616 5 7.384 0 7.384' fill='none' stroke-width='3' stroke='%23548E9B'/%3e%3c/g%3e%3c/svg%3e"); /* 使用内联 SVG 波浪线作为背景 */
+}
+
+/* 行内代码的基础样式。 */
+code {
+  font-family: 'SF Mono', menlo, inconsolata, monospace; /* 统一等宽字体 */
+  font-size: calc(1em - 2px); /* 比正文稍微小一点 */
+  color: #555; /* 代码文字颜色 */
+  padding: 0.2em 0.4em; /* 给行内代码一点内边距 */
+  border-radius: 2px; /* 略微圆角 */
+  -webkit-font-smoothing: antialiased; /* WebKit 下代码字体更清晰 */
+  -moz-osx-font-smoothing: grayscale; /* Firefox / macOS 下代码字体更清晰 */
+}
+
+/* 代码块容器样式。 */
+pre {
+  border-radius: 8px !important; /* 强制统一代码块圆角 */
+  margin: 1.2em 0 !important; /* 强制统一代码块外边距 */
+  padding: 1.2em; /* 代码块内边距 */
+}
+
+pre code {
+  padding: 0; /* 代码块内部的 code 不再重复加 padding */
+}
+
+/* 引用块样式。 */
+blockquote {
+  border-left: 4px solid #cccccc; /* 左侧强调线 */
+  font-size: 1.4em; /* 引用块文字略放大 */
+  font-style: italic; /* 引用块使用斜体 */
+  margin: 2rem 0; /* 上下留白 */
+  padding-left: 2rem; /* 左侧内容与边线拉开 */
+  padding-right: 2rem; /* 右侧也留出一点空间 */
+}
+
+blockquote p {
+  padding-bottom: 6px; /* 引用段落底部额外留白 */
+}
+
+blockquote footer {
+  font-size: 1.1rem; /* 引用来源字号 */
+  text-align: right; /* 引用来源靠右对齐 */
+}
+
+/* figure 重置默认样式，避免浏览器差异影响文章排版。 */
+figure {
+  padding: 0; /* 清除默认内边距 */
+  border: 0; /* 清除默认边框 */
+  font-size: 100%; /* 恢复标准字号 */
+  font: inherit; /* 继承当前字体 */
+  vertical-align: baseline; /* 和文本基线对齐 */
+  -webkit-margin-start: 0; /* 清除旧 WebKit 的默认起始外边距 */
+  -webkit-margin-end: 0; /* 清除旧 WebKit 的默认结束外边距 */
+  margin: 0 0 3em 0; /* figure 底部留较大空白 */
+}
+
+/* 表格整体样式。 */
+table {
+  border-collapse: collapse; /* 合并表格边框 */
+  font-family: var(--font-family-sans), serif; /* 表格使用无衬线字体 */
+  font-size: 1.125em; /* 表格字体略大于正文 */
+  margin: 2em 0; /* 上下留白 */
+}
+
+th {
+  border-bottom: 2px solid #cccccc; /* 表头底边更明显 */
+  padding: 0.4em 0.8em; /* 表头单元格内边距 */
+  word-break: break-word; /* 长单词允许换行 */
+}
+
+td {
+  padding: 0.4em 0.8em; /* 表格单元格内边距 */
+  word-break: break-word; /* 内容过长时允许换行 */
+}
+
+/* 文章正文里的一级标题单独放大，和普通 h1 区分开。 */
+.content h1 {
+  font-size: 3em; /* 正文内一级标题字号 */
+  margin: 1em 0; /* 正文内一级标题上下留白 */
+}
+
+/* 主题切换按钮整体外观。 */
+.theme-toggle {
+  display: inline-flex; /* 让图标横向排列 */
+  align-items: center; /* 垂直居中图标 */
+  height: 100%; /* 占满父容器高度 */
+  padding: 8px 0.67em 0.33em; /* 按钮左右内边距，顶部额外微调，补视觉偏移 */
+  margin-left: 10px; /* 与左侧导航项拉开距离 */
+  gap: 0.6em; /* 两个图标之间的间距 */
+  border-radius: 99em; /* 做成胶囊按钮 */
+  background-color: var(--theme-code-inline-bg); /* 胶囊背景色 */
+}
+
+.theme-toggle > label:focus-within {
+  outline: 2px solid transparent; /* 去掉默认 focus 外框视觉干扰 */
+  box-shadow: 0 0 0 0.08em var(--theme-accent), 0 0 0 0.12em white; /* 键盘聚焦时显示高亮环 */
+}
+
+.theme-toggle > label {
+  color: var(--theme-code-inline-text); /* 未选中图标颜色 */
+  position: relative; /* 供内部隐藏 input 绝对定位 */
+  display: flex; /* 让图标自身居中 */
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  opacity: 0.5; /* 未选中时半透明 */
+  cursor: pointer; /* 鼠标指针提示可点击 */
+}
+
+.theme-toggle .checked {
+  color: var(--theme-accent); /* 选中图标高亮色 */
+  opacity: 1; /* 选中状态完全不透明 */
+}
+
+input[name='theme-toggle'] {
+  position: absolute; /* 让 input 覆盖 label 点击区域 */
+  opacity: 0; /* 视觉上隐藏 input */
+  top: 0; /* 顶部贴齐 */
+  right: 0; /* 右侧贴齐 */
+  bottom: 0; /* 底部贴齐 */
+  left: 0; /* 左侧贴齐 */
+  z-index: -1; /* 不遮挡自定义图标 */
+}
+
+/* 中等屏幕下缩小一级标题，避免标题在平板尺寸上过大。 */
+@media (max-width: 1020px) {
+  h1 {
+    font-size: 3em; /* 缩小全局 h1 */
+  }
+
+  .content h1 {
+    font-size: 2.4em; /* 文章正文里的 h1 也同步缩小 */
+  }
 }
 
 /* 小屏时整体字号稍微下降一点，避免正文和组件显得过大。 */
 @media (max-width: 480px) {
   body {
-    font-size: 14px;
+    font-size: 14px; /* 整体字号下调 */
+  }
+
+  p,
+  ul,
+  ol {
+    font-size: 1.2rem; /* 小屏正文和列表字号下调 */
+    margin: 1em 0; /* 小屏段落间距稍微压缩 */
   }
 }
