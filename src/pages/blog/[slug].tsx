@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { BaseHead } from '../../components/BaseHead'
 import { Bio } from '../../components/Bio'
+import { CodeBlock } from '../../components/CodeBlock'
 import { getPostBySlug } from '../../data/posts'
 
 export function BlogPostPage() {
@@ -32,6 +33,22 @@ export function BlogPostPage() {
         <PostContent className="content markdown-body">
           {/* 文章正文来自 src/data/blog-posts/*.md，这里把 Markdown 渲染成页面内容。 */}
           <ReactMarkdown
+            components={{
+              code({ children, className, ...props }) {
+                const language = className?.replace('language-', '')
+                const code = String(children).replace(/\n$/, '')
+
+                if (!language) {
+                  return (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  )
+                }
+
+                return <CodeBlock code={code} language={language} />
+              },
+            }}
             rehypePlugins={[rehypeRaw]}
             remarkPlugins={[remarkGfm]}
           >
@@ -181,14 +198,6 @@ const PostContent = styled.article`
     padding: 0.65rem 0.8rem;
     border-bottom: 1px solid var(--border-soft);
     text-align: left;
-  }
-
-  &.markdown-body pre {
-    overflow-x: auto;
-    margin: 1.2rem 0;
-    padding: 1.2rem;
-    border-radius: 16px;
-    background: var(--code-block-bg);
   }
 
   &.markdown-body code {
