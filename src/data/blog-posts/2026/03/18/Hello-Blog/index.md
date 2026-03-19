@@ -5,7 +5,7 @@ publishDate: 18 Mar 2026
 description: 属于我的小小角落，今天正式上线了。会慢慢在这里分享思考、记录生活。
 ---
 
-![Hello, Blog](./title.webp)
+![Hello, Blog](./title.png)
 
 嗨，你好。
 

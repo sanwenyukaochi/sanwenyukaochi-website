@@ -1,11 +1,11 @@
 ---
 title: This Post Is Definitely Not Just Filler
 slug: This-Post-Is-Definitely-Not-Just-Filler
-publishDate: 20 Mar 2026
+publishDate: 19 Mar 2026
 description: 这是一篇以后新增博客时可以直接照抄的 Markdown 范文。
 ---
 
-![This Post Is Definitely Not Just Filler](./title.webp)
+![This Post Is Definitely Not Just Filler](./title.png)
 
 ```md
 ---
@@ -15,7 +15,7 @@ publishDate: 20 Mar 2026
 description: 这是一篇新文章的摘要。
 ---
 
-![封面]('./title.webp')
+![封面]("./title.png")
 
 正文第一段。
 
@@ -23,8 +23,8 @@ description: 这是一篇新文章的摘要。
 
 正文第二段。
 
-![配图1](./detail-1.webp)
-![配图2](./detail-2.webp)
+![配图1](./detail-1.png)
+![配图2](./detail-2.png)
 ```
 
 ```txt
