@@ -10,8 +10,8 @@
   --shadow-soft: 0 20px 60px rgba(84, 142, 155, 0.12);
   --code-block-bg: #f5f1ea;
   --code-inline-bg: #f1ece3;
-  --font-family-serif: 'SaveTheGalaxy', serif;
-  --font-family-sans: 'CangErCute', sans-serif;
+  --font-family-serif: 'Merriweather', serif;
+  --font-family-sans: 'Fira Sans', sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -46,7 +46,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-serif), serif;
   font-size: 16px;
   line-height: 1.6;
   background:
