@@ -1,0 +1,10 @@
+name: application-docker
+services:
+  website:
+    container_name: sanwenyukaochi-website
+    mem_limit: 200m
+    network_mode: "host"
+    restart: "no"
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
