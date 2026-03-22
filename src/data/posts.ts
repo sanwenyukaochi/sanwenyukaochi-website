@@ -46,8 +46,27 @@ function parsePost(filePath: string, rawMarkdown: string): BlogPost {
   // 用正则把 Markdown 文件拆成两段：
   // 1. --- 包起来的文章头信息
   // 2. 正文内容
-  const [, metaBlock, markdownBody] =
-    rawMarkdown.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/) ?? []
+  const normalizedMarkdown = rawMarkdown.replace(/\r\n/g, '\n')
+  const match = normalizedMarkdown.match(
+    /^---\n([\s\S]*?)\n---\n([\s\S]*)$/,
+  )
+  const metaBlock = match?.[1]
+  const markdownBody = match?.[2]
+
+  if (!metaBlock || !markdownBody) {
+    console.warn(`Invalid frontmatter format in ${filePath}`)
+    const fallbackSlug =
+      filePath.split('/').filter(Boolean).slice(-2, -1)[0] ?? 'untitled'
+    const fallbackContent = normalizedMarkdown.trim()
+    return {
+      title: 'Untitled',
+      slug: fallbackSlug,
+      publishDate: '1970-01-01',
+      description: '',
+      content: fallbackContent,
+      heroImage: fallbackContent.match(/!\[[^\]]*]\(([^)]+)\)/)?.[1],
+    }
+  }
 
   // 把文章头信息里的每一行 key: value 转成对象。
   const meta = Object.fromEntries(
